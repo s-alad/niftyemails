@@ -44,8 +44,18 @@ class Email:
         return ""+self.username+"@"+self.domain
 
     def random_username(self):
+        num = random.choices(
+            [str(random.randint(0, 10)), str(random.randint(11, 99)), str(random.randint(99, 999))],
+            weights=[.58, .26, .14]
+        )[0]
         sex = random.choices(['male', 'female'], weights=[.45, .55])[0]
-        return names.get_last_name() if random.randint(0, 1) == 0 else names.get_first_name(sex)
+        name = names.get_last_name() if random.randint(0, 1) == 0 else names.get_first_name(sex)
+        word = generate_username(1)[0][:-1] if random.randint(0, 1) == 0 else generate_username(1)[0][:-1]+num
+
+        first_section = random.randint(2, int(len(word) / 2))
+        second_section = random.randint(int(len(word) / 4), len(word) - 3)
+
+        return word[:first_section] + name + word[second_section:]
 
     def random_domain(self):
         preliminary_selection = random.choices([hi, me, lo], weights=[.8, .15, .05])[0]
@@ -53,8 +63,13 @@ class Email:
         return selection
 
 def main():
-    email = Email()
-    print(email.display())
+    iterations = int(input("iterations >> "))
+    f = open("output.txt", "r+")
+    for i in range(iterations):
+        email = Email()
+        f.write(email.display() + " \n")
+    f.close()
+
 if __name__ == "__main__":
     main()
 
