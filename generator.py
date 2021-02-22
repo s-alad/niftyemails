@@ -52,6 +52,7 @@ class Email:
         name = names.get_last_name() if random.randint(0, 1) == 0 else names.get_first_name(sex)
         word = generate_username(1)[0][:-1] if random.randint(0, 1) == 0 else generate_username(1)[0][:-1]+num
 
+        #mess with the numbes here to change up the usernames
         first_section = random.randint(2, int(len(word) / 2))
         second_section = random.randint(int(len(word) / 4), len(word) - 3)
 
