@@ -1,0 +1,2 @@
+# niftyemails
+fake email generator
